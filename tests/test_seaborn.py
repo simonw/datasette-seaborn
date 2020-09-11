@@ -37,17 +37,15 @@ async def test_image_dimensions_do_not_leak(ds):
             assert response.headers["content-type"] == "image/png"
             return png_dims(response.content)
 
-    dims1 = await get_dims("/penguins/penguins.seaborn?_seaborn=histplot")
-    assert dims1 == (800, 500)
+    histplot_dims = await get_dims("/penguins/penguins.seaborn?_seaborn=histplot")
 
-    dims2 = await get_dims("/penguins/penguins.seaborn?_seaborn=relplot")
-    assert dims2 == (650, 484)
+    relplot_dims = await get_dims("/penguins/penguins.seaborn?_seaborn=relplot")
 
     dims3 = await get_dims("/penguins/penguins.seaborn?_seaborn=histplot")
-    assert dims3 == (800, 500)
+    assert dims3 == histplot_dims
 
     dims4 = await get_dims("/penguins/penguins.seaborn?_seaborn=relplot")
-    assert dims4 == (650, 484)
+    assert dims4 == relplot_dims
 
 
 def png_dims(png_bytes):
