@@ -2,6 +2,7 @@ from datasette import hookimpl
 from datasette.utils.asgi import Response
 import seaborn as sns
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 import pandas as pd
 import io
 
@@ -26,6 +27,7 @@ def render_seaborn(columns, rows, request):
     # Reset matplotlib
     mpl.rcParams.update(mpl.rcParamsDefault)
     sns.set_theme()
+    plt.close("all")
     # Start a new figure
     mpl.pyplot.figure()
 
