@@ -26,7 +26,7 @@ jobs:
         pip install datasette
     - name: Create databases
       run: |
-        cat tests/squirrels.sql | sqlite3 squirrels.db
+        cat tests/penguins.sql | sqlite3 penguins.db
     - name: Set up Cloud Run
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
