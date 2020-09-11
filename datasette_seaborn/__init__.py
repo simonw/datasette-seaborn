@@ -26,6 +26,8 @@ def render_seaborn(columns, rows, request):
     # Reset matplotlib
     mpl.rcParams.update(mpl.rcParamsDefault)
     sns.set_theme()
+    # Start a new figure
+    mpl.pyplot.figure()
 
     df = pd.DataFrame.from_records(dict(row) for row in rows)
     method_fn = getattr(sns, method)
