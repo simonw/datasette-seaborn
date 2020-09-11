@@ -35,6 +35,10 @@ def render_seaborn(columns, rows, request):
     if not hasattr(figure, "savefig"):
         figure = figure.get_figure()
     figure.savefig(png, format="png")
+    if hasattr(figure, "clf"):
+        figure.clf()
+    else:
+        figure.fig.clf()
     return {"body": png.getvalue(), "content_type": "image/png"}
 
 
