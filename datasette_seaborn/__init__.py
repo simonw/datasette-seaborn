@@ -29,7 +29,7 @@ def render_seaborn(columns, rows, request):
     sns.set_theme()
     plt.close("all")
     # Start a new figure
-    mpl.pyplot.figure()
+    plt.figure(figsize=(8, 5))
 
     df = pd.DataFrame.from_records(dict(row) for row in rows)
     method_fn = getattr(sns, method)
