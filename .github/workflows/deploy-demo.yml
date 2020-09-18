@@ -38,6 +38,10 @@ jobs:
         gcloud config set run/region us-central1
         gcloud config set project datasette-222320
         datasette publish cloudrun penguins.db \
+          --source=palmerpenguins \
+          --source_url=https://allisonhorst.github.io/palmerpenguins/ \
+          --license=CC-0 \
+          --license_url=https://creativecommons.org/share-your-work/public-domain/cc0/ \
           --about=simonw/datasette-seaborn \
           --about_url=https://github.com/simonw/datasette-seaborn \
           --install=https://github.com/simonw/datasette-seaborn/archive/$GITHUB_SHA.zip \
