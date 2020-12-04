@@ -13,7 +13,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.9
     - uses: actions/cache@v2
       name: Configure pip caching
       with:
@@ -28,7 +28,7 @@ jobs:
       run: |
         cat tests/penguins.sql | sqlite3 penguins.db
     - name: Set up Cloud Run
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@master
       with:
         version: '275.0.0'
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
