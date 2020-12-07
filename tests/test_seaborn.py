@@ -7,13 +7,17 @@ import sqlite3
 
 
 @pytest.fixture(scope="session")
-def ds(tmp_path_factory):
+def db_path(tmp_path_factory):
     db_directory = tmp_path_factory.mktemp("dbs")
     db_path = str(db_directory / "penguins.db")
     conn = sqlite3.connect(db_path)
     conn.executescript((pathlib.Path(__file__).parent / "penguins.sql").read_text())
-    ds = Datasette([db_path])
-    return ds
+    return db_path
+
+
+@pytest.fixture(scope="session")
+def ds(db_path):
+    return Datasette([db_path])
 
 
 @pytest.mark.asyncio
@@ -46,6 +50,24 @@ async def test_image_dimensions_do_not_leak(ds):
 
     dims4 = await get_dims("/penguins/penguins.seaborn?_seaborn=relplot")
     assert dims4 == relplot_dims
+
+
+@pytest.mark.asyncio
+async def test_render_time_limit(db_path):
+    ds = Datasette(
+        [db_path],
+        metadata={
+            "plugins": {
+                "datasette-seaborn": {
+                    "render_time_limit": 0.01,
+                }
+            }
+        },
+    )
+    response = await ds.client.get("/penguins/penguins.seaborn?_seaborn=relplot")
+    assert response.status_code == 500
+    assert response.headers["content-type"] == "text/plain"
+    assert response.text == "Render took too long"
 
 
 def png_dims(png_bytes):

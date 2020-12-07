@@ -28,7 +28,7 @@ setup(
     version=VERSION,
     packages=["datasette_seaborn"],
     entry_points={"datasette": ["seaborn = datasette_seaborn"]},
-    install_requires=["datasette", "seaborn>=0.11.0"],
-    extras_require={"test": ["pytest", "pytest-asyncio", "httpx"]},
+    install_requires=["datasette>=0.50", "seaborn>=0.11.0"],
+    extras_require={"test": ["pytest", "pytest-asyncio"]},
     tests_require=["datasette-seaborn[test]"],
 )
