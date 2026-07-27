@@ -1,0 +1,34 @@
+[project]
+name = "datasette-seaborn"
+version = "0.2a0"
+description = "Statistical visualizations for Datasette using Seaborn"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = "Apache-2.0"
+dependencies = [
+    "datasette>=0.50",
+    "seaborn>=0.11.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/simonw/datasette-seaborn"
+Issues = "https://github.com/simonw/datasette-seaborn/issues"
+CI = "https://github.com/simonw/datasette-seaborn/actions"
+Changelog = "https://github.com/simonw/datasette-seaborn/releases"
+
+[project.entry-points.datasette]
+seaborn = "datasette_seaborn"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-asyncio"]
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio"]
+
+[tool.uv.build-backend]
+module-root = ""
+source-include = ["tests/**"]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.12.0"]
+build-backend = "uv_build"
